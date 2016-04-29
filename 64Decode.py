@@ -37,16 +37,18 @@ def Decode64(aList):
     result = ""
     # Byte 0
     masked = mask(bList[1], "110000")
-    masked = shiftright(masked, 4)
-    print(bList[0] + masked)
+    temp1 = shiftright(masked, 4)
+    temp2 = shiftleft(bList[0],2)
+    print(str(int(temp1)+int(temp2)).zfill(8))
     # Byte 1
-    temp1 = shiftleft(bList[1], 2)
+    temp1 = mask(bList[1], "001111")
     temp2 = shiftright(bList[2], 2)
-    print(temp1 + temp2)
+    temp1 = shiftleft(temp1,4)
+    print(str(int(temp1) + int(temp2)).zfill(8))
     # Byte 3
     masked = mask(bList[2], "000011")
-    masked = shiftleft(masked, 4)
-    print(masked + bList[3])
+    masked = shiftleft(masked, 6)
+    print(str(int(masked) + int(bList[3])).zfill(8))
     return result
 
 
@@ -62,7 +64,8 @@ def shiftright(aBinary, n):
 
 
 def shiftleft(aBinary, n):
-    return aBinary[n:]
+    for i in range(n):
+        aBinary+="0"
+    return aBinary
 
-
-Decode64(["K", "G", "l", "0"])
+Decode64(["J", "3", "M", "p"])
